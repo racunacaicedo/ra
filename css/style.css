@@ -127,7 +127,7 @@ body {
     margin: 0 auto;
 }
 
-.nav-logo h2 {
+.nav-logo .nav-logo-name {
     color: var(--primary-color);
     font-size: 1.5rem;
     margin-bottom: 4px;
@@ -4983,7 +4983,7 @@ textarea:focus {
         flex-wrap: wrap;
     }
 
-    .nav-logo h2 {
+    .nav-logo .nav-logo-name {
         font-size: 1.2rem;
     }
 
@@ -5224,7 +5224,7 @@ textarea:focus {
         padding: 0.7rem 12px;
     }
 
-    .nav-logo h2 {
+    .nav-logo .nav-logo-name {
         font-size: 1.1rem;
     }
 
@@ -5386,7 +5386,7 @@ textarea:focus {
         padding: 0.6rem 10px;
     }
 
-    .nav-logo h2 {
+    .nav-logo .nav-logo-name {
         font-size: 1rem;
     }
 
