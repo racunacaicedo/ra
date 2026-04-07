@@ -2017,76 +2017,180 @@
     </footer>
 
     <!-- ===== POPUP PUBLICITARIO - CURSO IA ===== -->
-    <div id="ad-overlay" style="
-        display:none;
-        position:fixed;
-        inset:0;
-        background:rgba(0,0,0,0.72);
-        z-index:99999;
-        align-items:center;
-        justify-content:center;
-        animation:fadeInOverlay 0.4s ease;
-    ">
-        <div style="position:relative;max-width:520px;width:90%;animation:popIn 0.4s ease;">
-            <!-- Botón cerrar -->
-            <button onclick="document.getElementById('ad-overlay').style.display='none'" style="
-                position:absolute;
-                top:-14px;right:-14px;
-                width:34px;height:34px;
-                background:#fff;
-                border:none;
-                border-radius:50%;
-                font-size:1.1rem;
-                cursor:pointer;
-                box-shadow:0 2px 8px rgba(0,0,0,0.3);
-                display:flex;align-items:center;justify-content:center;
-                line-height:1;
-                z-index:1;
-            " aria-label="Cerrar">✕</button>
-            <!-- Flayer clickeable -->
-            <a href="https://creinti.com/cursoIA.html" target="_blank" rel="noopener noreferrer">
-                <img src="flayer_digital.png" alt="Curso de Inteligencia Artificial" style="
-                    width:100%;
-                    border-radius:12px;
-                    display:block;
-                    box-shadow:0 20px 60px rgba(0,0,0,0.5);
-                    cursor:pointer;
-                ">
+    <style>
+        #ad-overlay {
+            display: flex;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.78);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #ad-card {
+            position: relative;
+            width: 90%;
+            max-width: 480px;
+            background: linear-gradient(145deg, #0d1b2a 0%, #1a2f4e 60%, #0d1b2a 100%);
+            border-radius: 18px;
+            padding: 40px 36px 32px;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+            border: 1px solid rgba(99,179,237,0.2);
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        #ad-card::before {
+            content: '';
+            position: absolute;
+            top: -60px; left: -60px;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(66,153,225,0.15), transparent 70%);
+            border-radius: 50%;
+        }
+        #ad-card::after {
+            content: '';
+            position: absolute;
+            bottom: -60px; right: -60px;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(246,173,85,0.12), transparent 70%);
+            border-radius: 50%;
+        }
+        #ad-close-btn {
+            position: absolute;
+            top: 12px; right: 14px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            line-height: 30px;
+            text-align: center;
+            padding: 0;
+            transition: background 0.2s;
+        }
+        #ad-close-btn:hover { background: rgba(255,255,255,0.25); }
+
+        #ad-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #f6ad55, #ed8936);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+        #ad-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        #ad-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.25;
+            margin-bottom: 6px;
+        }
+        #ad-title span {
+            background: linear-gradient(90deg, #63b3ed, #4299e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        #ad-subtitle {
+            color: #a0aec0;
+            font-size: 0.92rem;
+            margin-bottom: 22px;
+        }
+        #ad-features {
+            list-style: none;
+            padding: 0; margin: 0 0 26px;
+            text-align: left;
+        }
+        #ad-features li {
+            color: #cbd5e0;
+            font-size: 0.88rem;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+        #ad-features li::before {
+            content: '✓';
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: #fff;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        #ad-cta-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #f6ad55, #ed8936);
+            color: #fff;
+            padding: 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: 0.3px;
+            box-shadow: 0 6px 20px rgba(237,137,54,0.45);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 12px;
+        }
+        #ad-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(237,137,54,0.55);
+        }
+        #ad-skip {
+            color: #718096;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        #ad-skip:hover { color: #a0aec0; }
+    </style>
+
+    <div id="ad-overlay">
+        <div id="ad-card">
+            <button id="ad-close-btn" aria-label="Cerrar">✕</button>
+            <span id="ad-badge">🎓 Nuevo Curso</span>
+            <span id="ad-icon">🤖</span>
+            <div id="ad-title">Curso de <span>Inteligencia Artificial</span></div>
+            <p id="ad-subtitle">Aprende IA de forma práctica con el Dr. Roberto Acuña</p>
+            <ul id="ad-features">
+                <li>Fundamentos y aplicaciones de IA</li>
+                <li>Herramientas de IA para tu trabajo</li>
+                <li>Certificado de participación</li>
+                <li>Acceso a materiales exclusivos</li>
+            </ul>
+            <a id="ad-cta-btn" href="https://creinti.com/cursoIA.html" target="_blank" rel="noopener noreferrer">
+                ¡Quiero inscribirme ahora!
             </a>
-            <!-- Texto CTA -->
-            <div style="text-align:center;margin-top:14px;">
-                <a href="https://creinti.com/cursoIA.html" target="_blank" rel="noopener noreferrer" style="
-                    display:inline-block;
-                    background:linear-gradient(135deg,#f6ad55,#ed8936);
-                    color:#fff;
-                    padding:10px 28px;
-                    border-radius:25px;
-                    text-decoration:none;
-                    font-weight:700;
-                    font-size:0.95rem;
-                    box-shadow:0 4px 14px rgba(237,137,54,0.5);
-                    letter-spacing:0.3px;
-                ">¡Inscríbete ahora!</a>
-                <p style="color:#ccc;font-size:0.78rem;margin-top:8px;cursor:pointer;" onclick="document.getElementById('ad-overlay').style.display='none'">Cerrar y continuar al sitio</p>
-            </div>
+            <p id="ad-skip">No gracias, continuar al sitio</p>
         </div>
     </div>
-    <style>
-        @keyframes fadeInOverlay { from { opacity:0; } to { opacity:1; } }
-        @keyframes popIn { from { transform:scale(0.85); opacity:0; } to { transform:scale(1); opacity:1; } }
-    </style>
+
     <script>
         (function() {
-            // Mostrar el popup 1 segundo después de cargar la página
-            window.addEventListener('load', function() {
-                setTimeout(function() {
-                    var overlay = document.getElementById('ad-overlay');
-                    overlay.style.display = 'flex';
-                }, 1000);
-            });
-            // Cerrar al hacer clic fuera del contenido
-            document.getElementById('ad-overlay').addEventListener('click', function(e) {
-                if (e.target === this) this.style.display = 'none';
+            var overlay = document.getElementById('ad-overlay');
+            function cerrar() { overlay.style.display = 'none'; }
+            document.getElementById('ad-close-btn').addEventListener('click', cerrar);
+            document.getElementById('ad-skip').addEventListener('click', cerrar);
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) cerrar();
             });
         })();
     </script>
