@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - Formulario de Contacto Roberto AcuÃ±a</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .debug-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .debug-section h3 {
+            color: #4A90E2;
+            margin-top: 0;
+        }
+        .test-btn {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-btn:hover { background: #357ABD; }
+        .log-output {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .warning { color: #ffc107; }
+        .info { color: #17a2b8; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Debug - Formulario de Contacto</h1>
+    <p>Esta página te ayudará a verificar paso a paso dónde está el problema.</p>
+
+    <!-- PASO 1: Verificar carga de JavaScript -->
+    <div class="debug-section">
+        <h3>📋 Paso 1: Verificar carga de JavaScript</h3>
+        <button class="test-btn" onclick="testJSLoading()">Test: Verificar JS</button>
+        <div id="js-status" class="log-output">Presiona el botón para verificar...</div>
+    </div>
+
+    <!-- PASO 2: Verificar conexión con el servidor PHP -->
+    <div class="debug-section">
+        <h3>🌐 Paso 2: Verificar conexión PHP</h3>
+        <button class="test-btn" onclick="testPHPConnection()">Test: Conectar PHP</button>
+        <div id="php-status" class="log-output">Presiona el botón para verificar...</div>
+    </div>
+
+    <!-- PASO 3: Verificar base de datos -->
+    <div class="debug-section">
+        <h3>🗄️ Paso 3: Verificar base de datos</h3>
+        <button class="test-btn" onclick="testDatabase()">Test: Base de datos</button>
+        <div id="db-status" class="log-output">Presiona el botón para verificar...</div>
+    </div>
+
+    <!-- PASO 4: Test de envío de formulario -->
+    <div class="debug-section">
+        <h3>📨 Paso 4: Test de envío de formulario</h3>
+        <button class="test-btn" onclick="testFormSubmission()">Test: Envío completo</button>
+        <div id="form-status" class="log-output">Presiona el botón para verificar...</div>
+    </div>
+
+    <!-- PASO 5: Formulario real para prueba -->
+    <div class="debug-section">
+        <h3>📝 Paso 5: Formulario de prueba</h3>
+        <form id="debugForm" onsubmit="debugFormSubmit(event)">
+            <div style="margin-bottom: 15px;">
+                <label>Nombre: <input type="text" name="name" value="Test Usuario" required></label>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>Email: <input type="email" name="email" value="test@ejemplo.com" required></label>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>Teléfono: <input type="text" name="phone" value="+593 99 123 4567"></label>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>Empresa: <input type="text" name="company" value="Empresa Test"></label>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>Tipo Cliente:
+                    <select name="audience" required>
+                        <option value="empresa">Empresa</option>
+                        <option value="institucion">Institución</option>
+                        <option value="investigador">Investigador</option>
+                        <option value="profesional">Profesional</option>
+                    </select>
+                </label>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>Servicio:
+                    <select name="service">
+                        <option value="auditoria">Auditoría IA</option>
+                        <option value="implementacion">Implementación</option>
+                        <option value="capacitacion">Capacitación</option>
+                        <option value="consultoria">Consultoría</option>
+                    </select>
+                </label>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>Mensaje:
+                    <textarea name="message" required>Este es un mensaje de prueba para verificar el funcionamiento del formulario de contacto.</textarea>
+                </label>
+            </div>
+            <button type="submit" class="test-btn">Enviar Formulario de Prueba</button>
+        </form>
+        <div id="debug-form-output" class="log-output">Llena el formulario y envía para probar...</div>
+    </div>
+
+    <!-- LOG GENERAL -->
+    <div class="debug-section">
+        <h3>📊 Log General de Actividad</h3>
+        <button class="test-btn" onclick="clearLog()">Limpiar Log</button>
+        <div id="general-log" class="log-output">Log de actividad aparecerá aquí...</div>
+    </div>
+
+    <script>
+        // Variables globales para debug
+        let logOutput = '';
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const colorClass = type;
+            const logEntry = `[${timestamp}] ${message}\n`;
+
+            logOutput += logEntry;
+
+            const generalLog = document.getElementById('general-log');
+            generalLog.textContent = logOutput;
+            generalLog.className = `log-output ${colorClass}`;
+
+            console.log(`[DEBUG] ${message}`);
+        }
+
+        function clearLog() {
+            logOutput = '';
+            document.getElementById('general-log').textContent = 'Log limpiado...';
+        }
+
+        // PASO 1: Verificar carga de JavaScript
+        function testJSLoading() {
+            const output = document.getElementById('js-status');
+            let result = '';
+
+            // Verificar si contact-form.js está cargado
+            if (typeof ContactOptions !== 'undefined') {
+                result += '✅ ContactOptions está cargado\n';
+                log('ContactOptions está disponible', 'success');
+            } else {
+                result += '❌ ContactOptions NO está cargado\n';
+                log('ERROR: ContactOptions NO está disponible', 'error');
+            }
+
+            // Verificar si el formulario existe
+            const form = document.getElementById('contactForm');
+            if (form) {
+                result += '✅ Formulario #contactForm encontrado\n';
+                log('Formulario encontrado', 'success');
+            } else {
+                result += '⚠️ Formulario #contactForm NO encontrado (normal en página de debug)\n';
+                log('Formulario no encontrado en esta página', 'warning');
+            }
+
+            // Verificar console.log
+            if (typeof console !== 'undefined' && typeof console.log === 'function') {
+                result += '✅ console.log está disponible\n';
+                log('Console.log disponible', 'success');
+            } else {
+                result += '❌ console.log NO está disponible\n';
+                log('ERROR: Console.log no disponible', 'error');
+            }
+
+            // Verificar fetch API
+            if (typeof fetch === 'function') {
+                result += '✅ Fetch API está disponible\n';
+                log('Fetch API disponible', 'success');
+            } else {
+                result += '❌ Fetch API NO está disponible\n';
+                log('ERROR: Fetch API no disponible', 'error');
+            }
+
+            output.textContent = result;
+        }
+
+        // PASO 2: Verificar conexión PHP
+        async function testPHPConnection() {
+            const output = document.getElementById('php-status');
+            output.textContent = '🔄 Verificando conexión PHP...';
+            log('Iniciando test de conexión PHP', 'info');
+
+            try {
+                const response = await fetch('/php/test_connection.php', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                log(`Respuesta PHP: ${response.status} ${response.statusText}`, 'info');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+
+                let displayResult = `✅ Conexión PHP exitosa\n`;
+                displayResult += `Status: ${result.status}\n`;
+                displayResult += `Mensaje: ${result.message}\n`;
+                displayResult += `Base de datos: ${result.database}\n`;
+                displayResult += `Timestamp: ${result.timestamp}\n`;
+
+                output.textContent = displayResult;
+                log('Conexión PHP exitosa', 'success');
+
+            } catch (error) {
+                const errorMsg = `❌ Error de conexión PHP:\n${error.message}`;
+                output.textContent = errorMsg;
+                log(`Error PHP: ${error.message}`, 'error');
+            }
+        }
+
+        // PASO 3: Verificar base de datos
+        async function testDatabase() {
+            const output = document.getElementById('db-status');
+            output.textContent = '🔄 Verificando base de datos...';
+            log('Iniciando test de base de datos', 'info');
+
+            try {
+                // Usar el mismo test que para PHP connection ya que incluye DB
+                const response = await fetch('/php/test_connection.php');
+                const result = await response.json();
+
+                if (result.status === 'SUCCESS') {
+                    let dbResult = `✅ Base de datos funcionando\n`;
+                    dbResult += `Database: ${result.database}\n`;
+                    dbResult += `Timestamp: ${result.timestamp}\n`;
+
+                    output.textContent = dbResult;
+                    log('Base de datos operativa', 'success');
+                } else {
+                    throw new Error(result.message);
+                }
+
+            } catch (error) {
+                const errorMsg = `❌ Error de base de datos:\n${error.message}`;
+                output.textContent = errorMsg;
+                log(`Error BD: ${error.message}`, 'error');
+            }
+        }
+
+        // PASO 4: Test de envío completo
+        async function testFormSubmission() {
+            const output = document.getElementById('form-status');
+            output.textContent = '🔄 Probando envío de formulario...';
+            log('Iniciando test de envío completo', 'info');
+
+            const testData = {
+                name: 'Usuario Test Debug',
+                email: 'debug@test.com',
+                phone: '+593 99 999 9999',
+                company: 'Empresa Debug',
+                audience: 'empresa',
+                service: 'auditoria',
+                message: 'Este es un mensaje de prueba del sistema de debug para verificar el funcionamiento completo del formulario de contacto de Roberto Acuña.'
+            };
+
+            try {
+                log('Enviando datos de prueba...', 'info');
+                console.log('Datos de prueba:', testData);
+
+                const response = await fetch('/php/contact_processor.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+
+                log(`Respuesta del servidor: ${response.status}`, 'info');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                log('Respuesta JSON recibida', 'info');
+                console.log('Resultado completo:', result);
+
+                let displayResult = '';
+                if (result.success) {
+                    displayResult += `✅ Envío exitoso!\n`;
+                    displayResult += `Mensaje: ${result.data.message}\n`;
+                    if (result.data.contact_id) {
+                        displayResult += `ID de contacto: #${result.data.contact_id}\n`;
+                    }
+                    if (result.data.email_sent) {
+                        displayResult += `Emails enviados: ${JSON.stringify(result.data.email_sent)}\n`;
+                    }
+                    log('Formulario enviado exitosamente', 'success');
+                } else {
+                    displayResult += `❌ Error en envío:\n${result.message}`;
+                    log(`Error en formulario: ${result.message}`, 'error');
+                }
+
+                output.textContent = displayResult;
+
+            } catch (error) {
+                const errorMsg = `❌ Error en test de envío:\n${error.message}`;
+                output.textContent = errorMsg;
+                log(`Error crítico: ${error.message}`, 'error');
+            }
+        }
+
+        // PASO 5: Debug del formulario real
+        async function debugFormSubmit(event) {
+            event.preventDefault();
+
+            const output = document.getElementById('debug-form-output');
+            output.textContent = '🔄 Procesando formulario...';
+            log('Iniciando debug de formulario real', 'info');
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = {};
+
+            // Recopilar datos del formulario
+            for (let [key, value] of formData.entries()) {
+                data[key] = value.trim();
+            }
+
+            log('Datos recopilados del formulario', 'info');
+            console.log('Datos del formulario:', data);
+
+            try {
+                const response = await fetch('/php/contact_processor.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                let displayResult = `Status: ${response.status}\n`;
+                displayResult += `Success: ${result.success}\n`;
+                displayResult += `Message: ${result.message || 'No message'}\n`;
+
+                if (result.data) {
+                    displayResult += `Data: ${JSON.stringify(result.data, null, 2)}\n`;
+                }
+
+                output.textContent = displayResult;
+
+                if (result.success) {
+                    log('Formulario real enviado exitosamente', 'success');
+                } else {
+                    log(`Error en formulario real: ${result.message}`, 'error');
+                }
+
+            } catch (error) {
+                const errorMsg = `Error: ${error.message}`;
+                output.textContent = errorMsg;
+                log(`Error crítico en formulario: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-inicializar cuando carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Página de debug cargada', 'success');
+
+            // Auto-ejecutar primer test
+            setTimeout(() => {
+                testJSLoading();
+            }, 500);
+        });
+
+        // Capturar errores de JavaScript
+        window.addEventListener('error', function(e) {
+            log(`ERROR JS: ${e.message} en ${e.filename}:${e.lineno}`, 'error');
+        });
+
+        // Capturar promesas rechazadas
+        window.addEventListener('unhandledrejection', function(e) {
+            log(`PROMISE ERROR: ${e.reason}`, 'error');
+        });
+    </script>
+</body>
+</html>

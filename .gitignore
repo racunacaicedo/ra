@@ -1,0 +1,20 @@
+# Logs y errores
+error_log
+*.log
+
+# Archivos comprimidos
+*.zip
+*.tar.gz
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Entornos locales
+.env
+.env.local
+
+# Carpetas de caché
+__pycache__/
+.cache/

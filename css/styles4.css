@@ -1,0 +1,811 @@
+p {
+  max-width: 800px;
+  text-align: justify;
+}
+
+
+h1 {
+  max-width: 800px;
+  text-align: center;
+}
+
+/*Seccion logos*/
+
+.logo img {
+  margin-left: 250px;
+}
+
+
+.logo5{
+  width: 450px;
+  height: 680px;
+  position: relative;
+  top: 10px;
+  filter: drop-shadow(0px 7px 21px #ff0000);
+  animation: rotar 10s linear infinite;
+}
+
+.logo5:hover{
+  cursor: pointer;
+}
+
+@keyframes rotar{
+  from{
+      transform: rotateY(90deg);
+  }
+  to{
+      transform: rotateY(-180deg);
+  }
+}
+
+.logo5 {
+  height: auto;
+  width: auto;
+  max-height: 300px;
+  max-width: 300px;
+}
+
+.logo6{
+  width: 450px;
+  height: 680px;
+  position: fixed;
+  top: 10px;
+  filter: drop-shadow(0px 7px 21px #ff0000);
+  animation: rotar 5s linear infinite;
+}
+
+.logo6:hover{
+  cursor: pointer;
+}
+
+@keyframes rotar{
+  from{
+      transform: rotateY(90deg);
+  }
+  to{
+      transform: rotateY(-180deg);
+  }
+}
+
+.logo6 {
+  height: auto;
+  width: auto;
+  max-height: 80px;
+  max-width: 80px;
+}
+
+.container10 {
+    width: 70%; /* Controla el ancho de la sección. Puedes ajustar este valor según lo necesites. */
+    margin: 0 auto;  Centra la sección horizontalmente en la página. */
+    /*padding: 20px;  Espacio interno alrededor del contenido. */
+    background-color: #f9f9f9; /* Color de fondo para destacar la sección. */
+}
+
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 100px 50px;
+    padding: 100px 50px;
+    width: 100%; /* Ensure containers take up full width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    background-color: hsl(239, 95%, 23%); /* Fondo azul */
+    color: #FFFFFF; /* Color de texto blanco */
+}
+
+.container .card {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 400px;
+    max-width: 100%;
+    height: 600px;
+    background: white;
+    border-radius: 20px;
+    transition: 0.5s;
+    box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15);
+}
+
+.container .card:hover {
+    height: 400px;
+}
+
+Para asegurarte de que la imagen se vea completa aunque esté reducida, puedes utilizar la propiedad object-fit con el valor contain en lugar de cover. Esto hará que la imagen se ajuste dentro de su contenedor sin recortarse, aunque pueda haber áreas vacías alrededor. Aquí está el código actualizado:
+
+css
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 100px 50px;
+    padding: 100px 50px;
+    width: 100%; /* Ensure containers take up full width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    background-color: hsl(239, 95%, 23%); /* Fondo azul */
+    color: #FFFFFF; /* Color de texto blanco */
+}
+
+.container .card {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 350px;
+    max-width: 100%;
+    height: 450px;
+    background: white;
+    border-radius: 20px;
+    transition: 0.5s;
+    box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15);
+}
+
+.container .card:hover {
+    height: 400px;
+}
+
+.container .card .img-box {
+    position: absolute;
+    top: 20px;
+    width: 300px;
+    height: 250px;
+    background: #333;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.container .card:hover .img-box {
+    top: -100px;
+    scale: 0.75;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+.container .card .img-box img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Adjusted to contain */
+}
+
+.container .card .content {
+    position: absolute;
+    top: 252px;
+    width: 100%;
+    height: 35px;
+    padding: 0 30px;
+    text-align: center;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.container .card:hover .content {
+    top: 130px;
+    height: 250px;
+}
+
+.container .card .content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--clr);
+}
+
+.container .card .content p {
+    color: #FFFFFF; /* Color de texto blanco */
+}
+
+.container .content p {
+    color: #FFFFFF; /* Color de texto blanco */
+}
+
+.container .card .content a {
+    position: relative;
+    top: 15px;
+    display: inline-block;
+    padding: 12px 25px;
+    text-decoration: none;
+    background: var(--clr);
+    color: white;
+    font-weight: 500;
+}
+
+.container .card .content a:hover {
+    opacity: 0.8;
+}
+/*
+@media (max-width: 480px) {
+    .container .card {
+        width: 230px;
+        border-radius: 15px;
+    }
+*/
+@media (max-width: 480px) {
+    .logo img {
+        margin-left: 10px; /* Ajusta según sea necesario */
+    }
+
+    .logo5, .logo6 {
+        width: 100%; /* Ajusta el ancho para que sea responsivo */
+        height: auto; /* Mantiene la proporción de la imagen */
+        position: relative; /* Cambia la posición si es necesario */
+    }
+
+    .container, .container10, .nombre, .seccion-blanco, .seccion-azul, .seccion-verde, .seccion-rojo {
+        padding: 10px; /* Reduce el padding */
+        gap: 10px; /* Reduce el gap */
+        width: 100%;
+    }
+
+    /* Otros ajustes específicos para móviles */
+}
+
+    .container .card .img-box {
+        width: 185px;
+        border-radius: 10px;
+    }
+
+    .container .card .content p {
+        font-size: 0.8rem;
+    }
+
+    .container .card .content a {
+        font-size: 0.9rem;
+    }
+}
+/*
+@media (min-width: 481px) and (max-width: 768px) {
+  p, h1 {
+    font-size: 14px;
+  }
+}
+*/
+
+@media (min-width: 481px) and (max-width: 768px) {
+    /* Ajustes específicos para tabletas */
+    .logo img {
+        margin-left: 0; /* Ajusta según sea necesario */
+    }
+
+    .container, .container10, .nombre, .seccion-blanco, .seccion-azul, .seccion-verde, .seccion-rojo {
+        padding: 50px; /* Ajusta el padding */
+        gap: 30px; /* Ajusta el gap */
+    }
+
+    /* Otros ajustes específicos para tabletas */
+}
+
+
+@media (min-width: 769px) {
+  /* Estilos para escritorios */
+  p, h1 {
+    font-size: 12px; /* Ajusta el tamaño de la fuente para escritorios */
+  }
+}
+
+@media (max-width: 480px) {
+    h1, h2, p {
+        font-size: none; /* Ajusta los tamaños de fuente para móviles */
+    }
+
+    .link-estilizado, .container .card .content a {
+        padding: más grande; /* Aumenta el tamaño para facilitar la interacción */
+    }
+}
+
+.wrapper{
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+/*
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+*/
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+.wrapper::before{
+    transition: all .5s ease-in;
+    background-color: rgb(0, 194, 129);
+    position: absolute;
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.wrapper:hover::before{
+    opacity: .6 ;
+}
+
+miSection {
+    display: flex;
+    width: 600px;
+    height: 430px;
+
+}
+
+miSection img {
+    width: 0px;
+    flex: 0px;
+    object-fit: cover;
+    opacity: .8;
+    transition: .5s ease;
+}
+
+miSection img:hover {
+    cursor: crosshair;
+    width: 300px;
+    opacity: 1;
+    filter: contrast(120%);
+}
+
+h1 {
+	color: rgb(0, 0, 0);
+	font-size: 32px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+    font-family: 'Lucida Grande', Arial, sans-serif, helvetica;
+}
+
+h2 {
+	color: rgb(0, 0, 0);
+  font-size: 22px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+  font-family: 'Lucida Grande', Arial, sans-serif, helvetica;
+}
+
+p {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+pre {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+
+#destacado {
+    background-color: #fdab01;
+	color: #ffffff;
+	padding: 10px;
+	font-weight: bold;
+	text-align: center;
+}
+
+#destacado2 {
+	background-color: #008080;
+	color: #fff;
+	padding: 10px;
+	font-weight: bold;
+	text-align: center;
+}
+
+
+#destacado33 {
+  background-color: #ffffff;
+color: #ffffff;
+padding: 10px;
+font-weight: bold;
+text-align: center;
+}
+/* Agrega un ancho máximo al contenedor */
+
+.container5 {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.container {
+     max-width: 800px;
+     margin: 0 auto;
+     padding: 0 20px;
+}
+
+.container figure{
+     position: relative;
+     height: 100px;
+     width: 100px;
+     overflow: hidden;
+     border-radius: 4px;
+     box-shadow: 0px 20px 5px
+     rgba(0,0,0,0.50);
+     cursor: pointer;
+}
+
+.container figure img{
+     width: 100%;
+     height: 100%;
+     transition: all 500ms ease-out;
+}
+
+.container figure .capa{
+     position: absolute;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     background: rgba(11,103,123,0.6);
+     transition: all 500ms ease-out;
+     opacity: 0;
+     visibility: hidden;
+     text-align: center;
+}
+
+.container figure:hover > .capa{
+     opacity: 1;
+     visibility: visible;
+}
+
+.container figure:hover > .capa h3{
+     margin-top: 70px;
+     margin-bottom: 15px;
+}
+
+.container figure:hover > img{
+     transform: scale(1.3);
+}
+
+.container figure .capa h3{
+     color: #fff;
+     font-weight: 15px;
+     margin-bottom: 120px;
+     transition: all 500ms ease-out;
+     margin-top: 40px;
+}
+
+.container figure .capa p{
+     color: #FFFFFF;
+     font-size: 15px;
+     line-height: 1.5;
+     max-width: 420px;
+     margin: auto;
+}
+
+.container2 {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     padding: 0 50px;
+     font-size: 30px;
+}
+
+/* copiado hasta aqui */
+
+.nombre {
+     max-width: 800px;
+     margin: 0 auto;
+     padding: 0 20px;
+}
+
+.imagen {
+     margin-top: 50px;
+     margin-right: 50px;
+     margin-bottom: 2px;
+     margin-left: 100px;
+     width: 150px;
+     height: auto;
+}
+
+.imagen2 {
+     margin-top: 50px;
+     margin-right: 50px;
+     margin-bottom: 2px;
+     margin-left: 100px;
+     width: 400px;
+     height: auto;
+     text-align: center;
+}
+
+.destacar {
+    width: 100%; /* Controla el ancho de la sección. Puedes ajustar este valor según lo necesites.*/
+    margin: 0 auto; /*  Centra la sección horizontalmente en la página.*/
+    max-width: 800px;
+    padding: 20px;  Espacio /*interno alrededor del contenido. */
+    background-color: #7bcd5a;  /*Color de fondo para destacar la sección. */
+    border: 1px solid #ffffff;  /*Borde alrededor de la sección. */
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2);  /*Sombra sutil para darle profundidad. */
+}
+
+
+.destacar10 {
+    width: 100%; /* Controla el ancho de la sección. Puedes ajustar este valor según lo necesites.*/
+    margin: 0 auto; /*  Centra la sección horizontalmente en la página.*/
+    max-width: 800px;
+}
+
+.container10 {
+    width: 100%; /* Controla el ancho de la sección. Puedes ajustar este valor según lo necesites.*/
+    margin: 0 auto; /*  Centra la sección horizontalmente en la página.*/
+    max-width: 800px;
+}
+
+#destacado {
+     font-size: 24px; /* aumenta el tamaño de la letra a 24px */
+}
+
+#destacado2 {
+     font-size: 24px; /* aumenta el tamaño de la letra a 24px */
+}
+
+#contenedor-centrado {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+ /* seccion que permite que filas cambien de colores   */
+
+ /* Variables globales */
+:root {
+  --clippy: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  --primary-color: #f55107;
+  --secondary-color: #f86d70;
+}
+
+/* Reset básico para eliminar márgenes y paddings por defecto */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos comunes para .name y .paragraph */
+.name,
+.paragraph {
+  font-size: 1.2rem; /* Corregido el uso de la coma por un punto */
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+  transition: color 0.2s;
+}
+
+/* Estilos para el pseudo-elemento ::before de .name y .paragraph */
+.name::before,
+.paragraph::before {
+  content: "";
+  background: var(--primary-color);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  clip-path: var(--clippy);
+  transition: clip-path 2s;
+}
+
+/* Cambio de color de fondo para el pseudo-elemento ::before de .paragraph */
+.paragraph::before {
+  background: var(--secondary-color);
+}
+
+/* Efecto hover para .name */
+.name:hover::before {
+  clip-path: polygon(0 0, 85% 0, 99% 100%, 0 100%);
+}
+
+.name:hover + .paragraph::before {
+  clip-path: circle(150% at 50% 50%);
+  transition: clip-path 1.5s 2s;
+}
+
+.name:hover,
+.name:hover + .paragraph {
+  color: #FFF;
+}
+
+/* Estilos para .centered-line */
+.centered-line {
+  list-style-type: none; /* Esto elimina las viñetas */
+  display: flex;
+  text-align: center;
+  margin: 10px 0; /* Ajusta el margen según lo necesites */
+  padding-left: 40px; /* Añade un padding a la izquierda para tabular las viñetas */
+}
+
+ul, ol {
+  padding-left: 20px; /* Añade un padding a la izquierda para tabular las viñetas */
+}
+/* Estilos para .expand-icon */
+.expand-icon {
+  cursor: pointer;
+  margin-top: -12px;
+  font-size: 20px; 
+  color: #2D9CDB; 
+  transition: transform 0.3s; 
+}
+
+.expand-icon.active {
+  transform: rotate(180deg); 
+}
+
+/* Estilos para .additional-content y .additional-info */
+.additional-content, .additional-info {
+  display: none; 
+  color: #f7f7f7;
+  text-align: center;
+}
+
+.expand-btn.active + .additional-content {
+  display: block; 
+}
+
+.expand-icon.active + .additional-info {
+  display: block; 
+}
+
+.contenedor-centrado {
+  /* display: flex; Usa flexbox para centrar el contenido. */
+  justify-content: center; /* Centra el contenido horizontalmente. */
+  align-items: center;  Centra el contenido verticalmente. */
+  height: 100%;  Ocupa toda la altura disponible. */
+}
+
+.whatsapp-button {
+  position: fixed; 
+  bottom: 20px; 
+  right: 10px; 
+  z-index: 999; 
+}
+
+/* Viñetas*/
+
+.seccion-llamativa {
+  /*background-color: #003366; */ 
+  background-color: #02023d; /* Fondo azul */
+  color: #FFFFFF; /* /* Fondo azul oscuro */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.seccion-llamativa p {
+  font-size: 20px;
+  color:  #FFC300 ;
+  text-align: justify;
+}
+
+.seccion-llamativa ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.seccion-llamativa li {
+  font-size: 18px;
+  margin-bottom: 10px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.seccion-llamativa li:before {
+  content: '\2022';
+  color: #D2691E;
+  font-size: 30px;
+  position: absolute;
+  left: 0;
+  top: -5px;
+}
+
+/* Fin viñetas*/
+
+
+.seccion-azul {
+  background-color: #007BFF;
+  color: #FFFFFF; /* /* Fondo azul oscuro */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.seccion-verde {
+  background-color: #50C878;
+  color: #FFFFFF; /* /* Fondo azul oscuro */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.seccion-rojo {
+  background-color: #DC143C;
+  color: #FFFFFF; /* /* Fondo azul oscuro */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.seccion-blanco {
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 0%); /* /* Fondo azul oscuro */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.seccion-blanco p {
+  color: hsl(0, 0%, 0%);
+  font-size: 20px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+
+/* Linea de plomo*/
+
+.linea-plomo {
+  border: 0; /* Elimina el borde por defecto */
+  height: 1px; /* Define el grosor de la línea */
+  background-color: #ffffff; /* Color plomo */
+  margin: 0.5px 0; /* Espacio antes y después de la línea */
+}
+
+/* Fin linea de plomo*/
+
+/* Acceso a pagina Web*/
+
+
+.link-estilizado {
+    background-color: #f55107;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.link-estilizado:hover {
+    background-color: #005599;
+}
+
+/* Fin acceso a pagina Web*/
+/* Inicio Video*/
+
+.video-container {
+  position: relative;
+  padding-bottom: 30%; /* Reducir para disminuir la altura */
+  padding-top: 25px;
+  height: 0;
+  margin: 20px auto; /* Centrar el video */
+  max-width: 640px; /* Ajustar el ancho máximo del video */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+
+/* Fin Video*/
+
