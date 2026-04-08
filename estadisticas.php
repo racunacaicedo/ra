@@ -228,6 +228,44 @@
 <body>
 
 <?php
+/* ===== CLAVE DE ACCESO ===== */
+session_start();
+$clave_correcta = 'RobertoIA2024*';
+
+if (isset($_POST['clave'])) {
+    if ($_POST['clave'] === $clave_correcta) {
+        $_SESSION['estadisticas_ok'] = true;
+    } else {
+        $error_clave = true;
+    }
+}
+
+if (empty($_SESSION['estadisticas_ok'])) {
+    echo '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+    <title>Acceso — Estadísticas</title>
+    <style>
+        body{font-family:sans-serif;background:#1a365d;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+        .box{background:white;padding:40px;border-radius:12px;width:320px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.3)}
+        h2{color:#1a365d;margin-bottom:6px}
+        p{color:#718096;font-size:.9rem;margin-bottom:24px}
+        input{width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:1rem;box-sizing:border-box;margin-bottom:14px}
+        button{width:100%;padding:11px;background:#2C5282;color:white;border:none;border-radius:8px;font-size:1rem;cursor:pointer}
+        button:hover{background:#1a365d}
+        .error{color:#e53e3e;font-size:.85rem;margin-bottom:10px}
+    </style></head><body>
+    <div class="box">
+        <h2>📊 Estadísticas</h2>
+        <p>Dr. Roberto Acuña Caicedo</p>
+        ' . (!empty($error_clave) ? '<div class="error">Clave incorrecta</div>' : '') . '
+        <form method="POST">
+            <input type="password" name="clave" placeholder="Ingresa la clave" autofocus>
+            <button type="submit">Acceder</button>
+        </form>
+    </div>
+    </body></html>';
+    exit;
+}
+
 /* ===== Conexión a la base de datos ===== */
 $servername = "localhost";
 $username   = "creixuue_roberto_user";
@@ -238,6 +276,9 @@ $totalVisitas   = 0;
 $dbError        = false;
 $datosMensuales = [];
 $datosSemana    = [0, 0, 0, 0, 0, 0, 0]; // Lun→Dom
+$paginasTop     = [];
+$usuariosNuevos = 0;
+$usuariosRetorno = 0;
 
 try {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -265,7 +306,6 @@ try {
         }
 
         // Visitas por día de la semana
-        // MySQL DAYOFWEEK: 1=Dom,2=Lun,...,7=Sáb → reindex a Lun=0..Dom=6
         $r3 = $conn->query(
             "SELECT DAYOFWEEK(fecha) AS dia, SUM(visitas) AS total
              FROM visitas_diarias GROUP BY dia ORDER BY dia"
@@ -275,6 +315,28 @@ try {
                 $idx = ((int)$row['dia'] == 1) ? 6 : (int)$row['dia'] - 2;
                 $datosSemana[$idx] = (int)$row['total'];
             }
+        }
+
+        // Páginas más visitadas
+        $r4 = $conn->query(
+            "SELECT pagina, COUNT(*) AS total
+             FROM visitas_log
+             GROUP BY pagina
+             ORDER BY total DESC
+             LIMIT 7"
+        );
+        if ($r4) {
+            while ($row = $r4->fetch_assoc()) {
+                $paginasTop[] = ['pagina' => $row['pagina'], 'total' => (int)$row['total']];
+            }
+        }
+
+        // Usuarios nuevos vs recurrentes
+        $r5 = $conn->query("SELECT SUM(es_nuevo) AS nuevos, COUNT(*) AS total FROM visitas_log");
+        if ($r5) {
+            $row = $r5->fetch_assoc();
+            $usuariosNuevos  = (int)$row['nuevos'];
+            $usuariosRetorno = (int)$row['total'] - $usuariosNuevos;
         }
 
         $conn->close();
@@ -299,16 +361,17 @@ if (array_sum($datosSemana) === 0) {
 }
 
 /* ===== Métricas derivadas ===== */
-$paginasVistas   = round($totalVisitas * 3.4);
-$sesiones        = round($totalVisitas * 0.82);
-$tasa_rebote     = 34;
-$duracion_media  = "3m 42s";
-$usuarios_nuevos = round($totalVisitas * 0.68);
+$paginasVistas   = $totalVisitas > 0 ? array_sum(array_column($paginasTop, 'total')) : 0;
+$sesiones        = $totalVisitas;
+$usuarios_nuevos = $usuariosNuevos;
+$tasa_rebote     = 34; // pendiente de implementar tracking real
+$duracion_media  = "—"; // pendiente de implementar tracking real
 
 /* ===== Datos para JS ===== */
-$jsLabels  = json_encode(array_column($datosMensuales, 'mes'));
-$jsVisitas = json_encode(array_column($datosMensuales, 'total'));
-$jsSemana  = json_encode(array_values($datosSemana));
+$jsLabels      = json_encode(array_column($datosMensuales, 'mes'));
+$jsVisitas     = json_encode(array_column($datosMensuales, 'total'));
+$jsSemana      = json_encode(array_values($datosSemana));
+$jsNuevos      = json_encode([$usuariosNuevos, $usuariosRetorno]);
 ?>
 
 <!-- HEADER -->
@@ -410,7 +473,7 @@ $jsSemana  = json_encode(array_values($datosSemana));
                 <canvas id="chartVisitas" height="100"></canvas>
             </div>
             <div class="chart-card">
-                <h3><span>🌐</span> Dispositivos</h3>
+                <h3><span>👤</span> Usuarios nuevos vs recurrentes</h3>
                 <canvas id="chartDispositivos" height="180"></canvas>
             </div>
         </div>
@@ -436,36 +499,29 @@ $jsSemana  = json_encode(array_values($datosSemana));
                         <th>Página</th>
                         <th>Visitas</th>
                         <th>% del total</th>
-                        <th>Tendencia</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $paginas = [
-                        ["Inicio (index.html)",            42, "↑"],
-                        ["Servicios (#servicios)",         18, "↑"],
-                        ["Blog (blog.html)",               14, "↑"],
-                        ["Contacto (#contacto)",           10, "→"],
-                        ["Proyectos (#proyectos)",          7, "↑"],
-                        ["Sobre mí (#sobre-mi)",            5, "→"],
-                        ["Libros/Publicaciones",            4, "↓"],
-                    ];
-                    foreach ($paginas as $i => $p) {
-                        $pct   = $p[1];
-                        $color = $p[2] === "↑" ? "#38a169" : ($p[2] === "↓" ? "#e53e3e" : "#718096");
-                        echo "<tr>
-                            <td>" . ($i + 1) . "</td>
-                            <td>{$p[0]}</td>
-                            <td>" . number_format(round($paginasVistas * $pct / 100)) . "</td>
-                            <td>
-                                <div class='bar-mini'>
-                                    <div class='bar-mini-track'><div class='bar-mini-fill' style='width:{$pct}%'></div></div>
-                                    <span>{$pct}%</span>
-                                </div>
-                            </td>
-                            <td style='color:{$color};font-weight:600'>{$p[2]}</td>
-                        </tr>";
-                    }
+                    $totalLog = array_sum(array_column($paginasTop, 'total'));
+                    if (!empty($paginasTop)):
+                        foreach ($paginasTop as $i => $p):
+                            $pct = $totalLog > 0 ? round($p['total'] * 100 / $totalLog) : 0;
+                            echo "<tr>
+                                <td>" . ($i + 1) . "</td>
+                                <td>" . htmlspecialchars($p['pagina']) . "</td>
+                                <td>" . number_format($p['total']) . "</td>
+                                <td>
+                                    <div class='bar-mini'>
+                                        <div class='bar-mini-track'><div class='bar-mini-fill' style='width:{$pct}%'></div></div>
+                                        <span>{$pct}%</span>
+                                    </div>
+                                </td>
+                            </tr>";
+                        endforeach;
+                    else:
+                        echo "<tr><td colspan='4' style='text-align:center;color:#718096;padding:20px'>Aún no hay datos registrados</td></tr>";
+                    endif;
                     ?>
                 </tbody>
             </table>
@@ -527,10 +583,10 @@ const ctxDisp = document.getElementById('chartDispositivos').getContext('2d');
 new Chart(ctxDisp, {
     type: 'doughnut',
     data: {
-        labels: ['Móvil', 'Desktop', 'Tablet'],
+        labels: ['Nuevos', 'Recurrentes'],
         datasets: [{
-            data: [54, 38, 8],
-            backgroundColor: ['#2C5282', '#4299e1', '#bee3f8'],
+            data: <?= $jsNuevos ?>,
+            backgroundColor: ['#2C5282', '#68d391'],
             borderWidth: 0
         }]
     },
