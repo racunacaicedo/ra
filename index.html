@@ -15,6 +15,15 @@
     <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/svg+xml" href="imgs/favicon.svg">
     <link rel="shortcut icon" href="imgs/favicon.svg">
+    <meta name="theme-color" content="#1a365d">
+
+    <!-- ===== PERFORMANCE HINTS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://scholar.google.com">
+    <link rel="dns-prefetch" href="https://www.linkedin.com">
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="imgs/foto_libro.jpeg" as="image">
 
     <!-- ===== OPEN GRAPH (Facebook, LinkedIn, WhatsApp) ===== -->
     <meta property="og:type"        content="website">
@@ -58,10 +67,16 @@
             {"@type": "CollegeOrUniversity", "name": "Pontificia Universidad Católica del Perú"},
             {"@type": "CollegeOrUniversity", "name": "ESPOL"}
           ],
-          "knowsAbout": ["Inteligencia Artificial", "Machine Learning", "Investigación Científica", "Consultoría Empresarial"],
+          "knowsAbout": ["Inteligencia Artificial", "Machine Learning", "Deep Learning", "Procesamiento de Lenguaje Natural", "ChatGPT", "Prompt Engineering", "Automatización con IA", "Investigación Científica", "Consultoría Empresarial"],
+          "hasCredential": [
+            {"@type": "EducationalOccupationalCredential", "credentialCategory": "PhD", "name": "Doctor en Ingeniería"}
+          ],
           "sameAs": [
             "https://github.com/racunacaicedo",
-            "https://creinti.com"
+            "https://creinti.com",
+            "https://scholar.google.com/citations?hl=es&user=taNKMqoAAAAJ",
+            "https://www.linkedin.com/in/roberto-acu%C3%B1a-627204a9",
+            "https://www.researchgate.net/profile/Roberto-Acuna-5"
           ]
         },
         {
@@ -83,6 +98,52 @@
           "name": "Roberto Acuña Caicedo",
           "description": "Sitio oficial del Dr. Roberto Acuña Caicedo, Consultor en Inteligencia Artificial",
           "publisher": {"@id": "https://www.robertoacunacaicedo.com/#person"}
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://www.robertoacunacaicedo.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Quién es el Dr. Roberto Acuña Caicedo?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El Dr. Roberto Acuña Caicedo es un PhD en Ingeniería y consultor especializado en Inteligencia Artificial con más de 25 años de experiencia. Es reconocido como uno de los principales expertos en IA de Ecuador y Latinoamérica, con publicaciones científicas, libros y proyectos de transformación digital en empresas e instituciones de la región."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cuál es el mejor consultor en Inteligencia Artificial en Ecuador?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El Dr. Roberto Acuña Caicedo es uno de los consultores en Inteligencia Artificial más destacados de Ecuador. Doctor en Ingeniería, autor de libros sobre IA, investigador con publicaciones en Google Scholar y consultor para empresas e instituciones en Ecuador, Colombia, Perú y Latinoamérica. Ofrece servicios de capacitación en IA, desarrollo de aplicaciones con inteligencia artificial y consultoría estratégica."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué servicios de Inteligencia Artificial ofrece el Dr. Roberto Acuña?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El Dr. Roberto Acuña ofrece: (1) Capacitación en Inteligencia Artificial para empresas e instituciones, (2) Desarrollo de aplicaciones con IA como chatbots, automatización y análisis de datos, (3) Consultoría estratégica en transformación digital con IA, (4) Auditoría de procesos para integración de IA, y (5) Cursos y talleres sobre prompt engineering, ChatGPT y herramientas de IA generativa."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cómo capacitarse en Inteligencia Artificial en Ecuador?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El Dr. Roberto Acuña Caicedo ofrece programas de capacitación en Inteligencia Artificial en Ecuador, tanto presenciales como virtuales. Sus cursos están diseñados para profesionales, empresas e instituciones que desean implementar IA en sus procesos. Puede contactarlo en contacto@robertoacunacaicedo.com o visitar www.robertoacunacaicedo.com."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué publicaciones científicas tiene el Dr. Roberto Acuña sobre IA?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El Dr. Roberto Acuña Caicedo cuenta con múltiples publicaciones científicas sobre Inteligencia Artificial, Machine Learning e Investigación disponibles en Google Scholar. Es autor de libros especializados en IA aplicada, tesis doctorales y artículos en revistas indexadas. Su perfil académico completo está en https://scholar.google.com/citations?hl=es&user=taNKMqoAAAAJ"
+              }
+            }
+          ]
         }
       ]
     }
@@ -2286,5 +2347,6 @@
     <script src="js/fix-gallery-social.js" defer></script>
     <script src="js/fix-services-tabs.js"  defer></script>
     <script src="js/purchase-modal.js"    defer></script>
+
   </body>
 </html>
