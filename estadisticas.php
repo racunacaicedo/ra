@@ -489,6 +489,47 @@ $jsNuevos      = json_encode([$usuariosNuevos, $usuariosRetorno]);
             </div>
         </div>
 
+        <!-- VISITAS POR MES -->
+        <div class="table-card">
+            <h3><span>📅</span> Visitas por mes</h3>
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Visitas</th>
+                        <th>Tendencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (!empty($datosMensuales)):
+                        $prev = null;
+                        foreach ($datosMensuales as $m):
+                            $total = $m['total'];
+                            if ($prev === null) {
+                                $tendencia = '—'; $color = '#718096';
+                            } elseif ($total > $prev) {
+                                $tendencia = '↑ sube'; $color = '#38a169';
+                            } elseif ($total < $prev) {
+                                $tendencia = '↓ baja'; $color = '#e53e3e';
+                            } else {
+                                $tendencia = '→ igual'; $color = '#718096';
+                            }
+                            $prev = $total;
+                            echo "<tr>
+                                <td><strong>{$m['mes']}</strong></td>
+                                <td>" . number_format($total) . "</td>
+                                <td style='color:{$color};font-weight:600'>{$tendencia}</td>
+                            </tr>";
+                        endforeach;
+                    else:
+                        echo "<tr><td colspan='3' style='text-align:center;color:#718096;padding:20px'>Aún no hay datos registrados</td></tr>";
+                    endif;
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
         <!-- PÁGINAS MÁS VISITADAS -->
         <div class="table-card">
             <h3><span>🏆</span> Páginas más visitadas</h3>
